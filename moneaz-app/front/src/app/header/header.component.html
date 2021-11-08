@@ -1,0 +1,18 @@
+<header>
+  <div class="wrap">
+    <a class="logo" routerLink="/dashboard" href=""><span></span>moneaZ</a>
+    <nav id="nav">
+      <a href="#">Pricing</a>
+      <a href="#">About</a>
+      <a href="#">FAQ</a>
+      <span></span>
+      <ng-container *ngIf="!auth.isAuthenticated()">
+        <a id="login_button" routerLink="/login" href="#">Login</a>
+        <a id="register_button" routerLink="/register" href="#">Create account</a>
+      </ng-container>
+      <ng-container *ngIf="auth.isAuthenticated()">
+        <a id="logout_button" href="#" (click)="logout()">Log Out</a>
+      </ng-container>
+    </nav>
+  </div>
+</header>

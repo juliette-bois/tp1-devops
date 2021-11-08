@@ -1,0 +1,49 @@
+/* Add global styles and also import other style files */
+@import '~reset-css';
+@import url('https://fonts.googleapis.com/css2?family=Mulish:wght@300;400;500;600;700&display=swap');
+
+$black: #1f1f30;
+$sans-serif-font-family: 'Mulish', sans-serif;
+$family-light: 300;
+$family-regular: 400;
+$family-medium: 500;
+$family-semi-bold: 600;
+$family-bold: 700;
+
+body {
+  color: $black;
+  font-family: $sans-serif-font-family;
+
+  .wrap {
+    margin: 0 auto;
+    padding: 0 100px;
+    max-width: 1000px;
+  }
+
+  a {
+    color: $black;
+    text-decoration: none;
+  }
+
+  button,
+  form,
+  input {
+    font-family: $sans-serif-font-family;
+  }
+}
+
+@media all and (max-width: 1024px) {
+  body {
+    .wrap {
+      padding: 0 60px;
+    }
+  }
+}
+
+@media all and (max-width: 580px) {
+  body {
+    .wrap {
+      padding: 0 30px;
+    }
+  }
+}

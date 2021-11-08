@@ -1,0 +1,12 @@
+<div class="top">
+  <h2 mat-dialog-title>Delete an expense</h2>
+  <button mat-icon-button (click)="onNoClick()"><mat-icon>cancel</mat-icon></button>
+</div>
+<div mat-dialog-content>
+  <p>You are about to delete this expense. <br>
+    Are you sure you want to continue?</p>
+</div>
+<div mat-dialog-actions>
+  <button color="primary" mat-flat-button (click)="onValidClick()">Yes</button>
+  <button color="primary" mat-flat-button (click)="onNoClick()">No</button>
+</div>

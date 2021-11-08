@@ -1,0 +1,80 @@
+version: "3.3"
+
+services:
+
+  composer:
+    image: composer:1.9
+    working_dir: /var/www/html
+    command: ["composer", "install"]
+    volumes:
+      - ./api:/var/www/html
+
+  db:
+    image: mysql:5.7
+    volumes:
+      - db_data:/var/lib/mysql
+    restart: always
+    ports:
+      - '3306:3306'
+    expose:
+      - '3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: dev
+      MYSQL_DATABASE: dev
+      MYSQL_USER: dev
+      MYSQL_PASSWORD: dev
+
+  app:
+    image: kiwiz
+    depends_on:
+      - composer
+      - db
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-api
+    ports:
+      - "80:80"
+    expose:
+      - 80
+    volumes:
+      - ./api:/var/www/html
+    environment:
+      DOCKER_DB_HOSTNAME: db
+      DOCKER_DB_USERNAME: dev
+      DOCKER_DB_PASSWORD: dev
+      DOCKER_DB_NAME: dev
+
+  migrate:
+    depends_on:
+      - composer
+      - db
+      - app
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-api
+    volumes:
+      - ./api:/var/www/html
+    command: ["php", "/var/www/html/artisan", "migrate"]
+    environment:
+      DOCKER_DB_HOSTNAME: db
+      DOCKER_DB_USERNAME: dev
+      DOCKER_DB_PASSWORD: dev
+      DOCKER_DB_NAME: dev
+
+  angular-ui:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile-angular
+    ports:
+      - "4200:4200"
+    expose:
+      - 4200
+    volumes:
+      - ./front:/usr/src/app/app-ui
+      - /usr/src/app/app-ui/node_modules
+    environment:
+      DOCKER_API_HOST: app
+
+
+volumes:
+  db_data: {}

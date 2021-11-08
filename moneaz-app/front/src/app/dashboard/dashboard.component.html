@@ -1,0 +1,30 @@
+<section id="dashboard">
+  <div class="wrap">
+    <span class="total">{{amount}} €</span>
+    <div class="chart"></div>
+    <mat-tab-group mat-align-tabs="center">
+      <mat-tab label="Budgets">
+        <mat-list>
+          <ng-container *ngFor="let b of budgets">
+            <mat-list-item [routerLink]="['/budget', b.id]">{{b.name}}</mat-list-item>
+            <mat-divider></mat-divider>
+          </ng-container>
+        </mat-list>
+        <button matTooltip="Add a budget" mat-icon-button aria-label="Add a budget" (click)="openDialogBudget()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-tab>
+      <mat-tab label="Expenses">
+        <mat-list>
+          <ng-container *ngFor="let e of expenses">
+            <mat-list-item [routerLink]="['/expense', e.id]">{{e.name}}</mat-list-item>
+            <mat-divider></mat-divider>
+          </ng-container>
+        </mat-list>
+        <button matTooltip="Add an expense" mat-icon-button aria-label="Add an expense" (click)="openDialogExpense()">
+          <mat-icon>add</mat-icon>
+        </button>
+      </mat-tab>
+    </mat-tab-group>
+  </div>
+</section>

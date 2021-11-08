@@ -1,0 +1,19 @@
+<section id="budget">
+  <a routerLink="/dashboard" href="#"><mat-icon>navigate_before</mat-icon>Back</a>
+  <div class="container">
+    <p class="title">{{budget?.name}}</p>
+    <span class="total">{{expense?.amount}} €</span>
+    <div class="actions-button-row">
+      <button matTooltip="Update an expense" mat-icon-button aria-label="Update an expense" (click)="updateDialog()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button matTooltip="Delete an expense" mat-icon-button aria-label="Delete an expense" (click)="deleteDialog()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <mat-list>
+      <mat-list-item>Date : {{expense?.updated_at | date: 'longDate'}}</mat-list-item>
+      <mat-divider></mat-divider>
+    </mat-list>
+  </div>
+</section>

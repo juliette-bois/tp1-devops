@@ -1,0 +1,8 @@
+api/vendor
+api/.idea
+api/.ebextensions
+front/node_modules
+front/.idea
+.idea
+.git
+.DS_Store

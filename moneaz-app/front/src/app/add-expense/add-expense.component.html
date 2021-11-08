@@ -1,0 +1,25 @@
+<div class="top">
+  <h2 mat-dialog-title>Add an expense</h2>
+  <button mat-icon-button (click)="onNoClick()">
+    <mat-icon>cancel</mat-icon>
+  </button>
+</div>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Name of expense</mat-label>
+    <input matInput [(ngModel)]="data.name" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Amount</mat-label>
+    <input matInput [(ngModel)]="data.amount" required>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Budget</mat-label>
+    <mat-select [(ngModel)]="data.budget" type="radio" required>
+      <mat-option *ngFor="let b of budgets" [value]="b">{{b.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button color="primary" mat-flat-button (click)="onValidate()">Validate</button>
+</div>

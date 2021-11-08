@@ -1,0 +1,58 @@
+<section id="register">
+  <div class="fields-container">
+    <h1>Get started</h1>
+    <mat-horizontal-stepper [linear]="isLinear" #stepper (submit)="register()">
+      <mat-step [stepControl]="firstFormGroup">
+        <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Name</ng-template>
+          <mat-form-field>
+            <mat-label>LastName</mat-label>
+            <input autofocus matInput placeholder="Bois" formControlName="firstCtrl" required [(ngModel)]="lastname">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>FirstName</mat-label>
+            <input matInput placeholder="Juliette" formControlName="firstCtrl" required [(ngModel)]="firstname">
+          </mat-form-field>
+          <div class="buttons">
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Username</ng-template>
+          <mat-form-field>
+            <mat-label>Username</mat-label>
+            <input autofocus matInput formControlName="secondCtrl" placeholder="Quickette"
+                   required [(ngModel)]="username">
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="juliette.bois@ipilyon.net"
+                   required [(ngModel)]="email">
+          </mat-form-field>
+          <div class="buttons">
+            <button mat-button matStepperPrevious>Previous</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      <mat-step>
+        <form [formGroup]="thirdFormGroup" id="register_form">
+          <ng-template matStepLabel>Password</ng-template>
+          <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input autofocus matInput [type]="hide ? 'password' : 'text'" formControlName="thirdCtrl" placeholder="Mot de passe" required [(ngModel)]="password">
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+              <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+          </mat-form-field>
+          <div class="buttons">
+            <button mat-button matStepperPrevious>Previous</button>
+            <button mat-flat-button color="primary" class="submit-button" type="submit">Get started</button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-horizontal-stepper>
+  </div>
+</section>

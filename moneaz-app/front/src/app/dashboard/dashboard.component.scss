@@ -1,0 +1,55 @@
+::ng-deep * {
+  color: black;
+}
+
+section#dashboard {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: auto;
+  position: relative;
+  height: calc(100vh - 72px);
+
+  div.wrap {
+    width: 700px;
+
+    span.total {
+      font-size: 30px;
+      margin-bottom: 50px;
+      text-align: center;
+      display: block;
+
+      > span {
+        font-size: 17px;
+      }
+    }
+
+    mat-list-item {
+      cursor: pointer;
+    }
+
+    div.chart {
+      background-color: grey;
+      height: 300px;
+      margin-bottom: 50px;
+      width: 100%;
+    }
+
+    button.add {
+      bottom: 30px;
+      position: absolute;
+      right: 30px;
+    }
+  }
+}
+
+@media all and (max-width: 780px) {
+  section#dashboard {
+    width: 100%;
+
+    div.wrap {
+      padding: 0px 0px;
+      width: 85%;
+    }
+  }
+}
