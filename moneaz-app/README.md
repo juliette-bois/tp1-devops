@@ -1,6 +1,5 @@
 # TP 1  - INFO910 Introduction DevOps
 
-
 ### Sujet
 1 application avec au moins 2 conteneurs pour tourner :
 - peu importe le langage ou le type d’application
@@ -19,7 +18,7 @@ Architecture de l'application & langages utilisés :
 - Coté serveur : PHP, Laravel
 - Coté Base de données : SQL (ou No-SQL)
 
-## Partie Docker
+## Partie "Dev"
 ### Informations et pré-requis
 
 Les ports 80, 3360 et 4200 doivent être disponibles sur votre machine.
@@ -45,3 +44,7 @@ Cela va :
 
 
 ```composer update``` et ```laravel migrations``` seront automatiquement lancés lors du ```docker-compose up```
+
+
+## Partie "Ops"
+

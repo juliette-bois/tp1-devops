@@ -1,0 +1,70 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: app-front-volume-pv
+  labels:
+    type: local
+spec:
+  storageClassName: generic
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "front"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  name: app-front-volume-pvc
+spec:
+  storageClassName: generic
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-front
+  labels:
+    app: appmoneaz
+    role: front
+spec:
+  selector:
+    matchLabels:
+      app: appmoneaz
+      role: front
+  template:
+    metadata:
+      labels:
+        app: appmoneaz
+        role: front
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: moneaz-app-angular-ui
+          image: moneaz-app-angular-ui
+          imagePullPolicy: Never
+#          resources:
+#            limits:
+#              memory: "350Mi"
+#              cpu: "500m"
+#            requests:
+#              memory: "200Mi"
+#              cpu: "0.3"
+          ports:
+            - containerPort: 4200
+          volumeMounts:
+            - name: app-front-volume
+              mountPath: /usr/src/app/app-ui
+      volumes:
+        - name: app-front-volume
+          persistentVolumeClaim:
+            claimName: app-front-volume-pvc

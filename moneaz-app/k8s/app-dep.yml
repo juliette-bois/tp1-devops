@@ -1,0 +1,91 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: app-volume-pv
+  labels:
+    type: local
+spec:
+  storageClassName: generic
+  capacity:
+    storage: 100Mi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "api"
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  creationTimestamp: null
+  name: app-volume-pvc
+spec:
+  storageClassName: generic
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 100Mi
+status: {}
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  labels:
+    app: appmoneaz
+    role: back
+spec:
+  selector:
+    matchLabels:
+      app: appmoneaz
+      role: back
+  template:
+    metadata:
+      labels:
+        app: appmoneaz
+        role: back
+    spec:
+      containers:
+        - name: kiwiz
+          image: kiwiz
+          imagePullPolicy: "IfNotPresent"
+          resources:
+            limits:
+              memory: "350Mi"
+              cpu: "500m"
+            requests:
+              memory: "200Mi"
+              cpu: "0.3"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: app-volume
+              mountPath: /var/www/html
+          env:
+            - name: DOCKER_DB_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: DOCKER_DB_HOSTNAME
+            - name: DOCKER_DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_USER
+            - name: DOCKER_DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_PASSWORD
+            - name: DOCKER_DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: MYSQL_DATABASE
+      volumes:
+        - name: app-volume
+          persistentVolumeClaim:
+            claimName: app-volume-pvc

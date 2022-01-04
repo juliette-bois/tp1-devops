@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app
+  labels:
+    app: appmoneaz
+    role: back
+spec:
+  selector:
+    app: appmoneaz
+    role: back
+  type: LoadBalancer
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 31013
+  loadBalancerIP: 127.0.0.1
+

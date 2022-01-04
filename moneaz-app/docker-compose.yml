@@ -31,7 +31,7 @@ services:
       - db
     build:
       context: .
-      dockerfile: ./docker/Dockerfile-api
+      dockerfile: docker/Dockerfile-api
     ports:
       - "80:80"
     expose:
@@ -51,7 +51,7 @@ services:
       - app
     build:
       context: .
-      dockerfile: ./docker/Dockerfile-api
+      dockerfile: docker/Dockerfile-api
     volumes:
       - ./api:/var/www/html
     command: ["php", "/var/www/html/artisan", "migrate"]
@@ -64,7 +64,7 @@ services:
   angular-ui:
     build:
       context: .
-      dockerfile: ./docker/Dockerfile-angular
+      dockerfile: docker/Dockerfile-angular
     ports:
       - "4200:4200"
     expose:
