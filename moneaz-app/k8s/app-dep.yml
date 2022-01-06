@@ -49,7 +49,7 @@ spec:
         role: back
     spec:
       containers:
-        - name: kiwiz
+        - name: back
           image: kiwiz
           imagePullPolicy: "IfNotPresent"
           resources:

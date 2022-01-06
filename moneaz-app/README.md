@@ -48,3 +48,45 @@ Cela va :
 
 ## Partie "Ops"
 
+Tout d'abord, il faut lancer minikube. 
+Etant donné que la compilation d'Angular est assez lourde, il faut alloué plus de mémoire de de CPU à minikube
+```
+minikube start --memory 6196 --cpus 4
+```
+
+Il faut ensuite donner à minikube les variables d'environnement afin de pouvoir les données les images Docker à créer
+```
+eval $(minikube -p minikube docker-env)
+```
+
+Nous avons besoin de build nos images Docker
+```
+docker-compose build
+```
+
+A la racine du projet `moneaz-app`, il faut lancer les pods
+```
+kubectl apply -f k8s
+```
+
+A ce stade, il faut log le pod front afin de bien attendre la fin de la compilation.
+```
+kubectl logs app-front-6f7f5cf599-spc5w
+``` 
+(en remplaçant le nom du pod par le votre : copier le nom du pod pour le front `kubectl get pods`)
+
+Avec Minikube, il faut donner une IP externe pour les pods
+```
+minikube tunnel
+```
+
+Ensuite, copier le nom du pod pour le back. Vous pouvez lister les pods avec cette commande :
+```
+kubectl get pods
+```
+
+Et lancer les migrations dans ce pod avec cette commande (en remplaçant le nom du pod par le votre) :
+```
+kubectl exec app-c54cb6987-xbj56 -- "php" "artisan" "migrate"
+```
+

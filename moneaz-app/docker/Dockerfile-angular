@@ -6,4 +6,6 @@ COPY ./front/package*.json ./
 
 RUN npm install -g @angular/cli @angular-devkit/build-angular && npm install
 
+COPY ./front/ ./
+
 CMD ["npm", "start"]

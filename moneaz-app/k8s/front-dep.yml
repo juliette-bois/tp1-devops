@@ -1,34 +1,34 @@
-kind: PersistentVolume
-apiVersion: v1
-metadata:
-  name: app-front-volume-pv
-  labels:
-    type: local
-spec:
-  storageClassName: generic
-  capacity:
-    storage: 100Mi
-  accessModes:
-    - ReadWriteOnce
-  hostPath:
-    path: "front"
-
----
-apiVersion: v1
-kind: PersistentVolumeClaim
-metadata:
-  creationTimestamp: null
-  name: app-front-volume-pvc
-spec:
-  storageClassName: generic
-  accessModes:
-    - ReadWriteOnce
-  resources:
-    requests:
-      storage: 100Mi
-status: {}
-
----
+#kind: PersistentVolume
+#apiVersion: v1
+#metadata:
+#  name: app-front-volume-pv
+#  labels:
+#    type: local
+#spec:
+#  storageClassName: generic
+#  capacity:
+#    storage: 100Mi
+#  accessModes:
+#    - ReadWriteOnce
+#  hostPath:
+#    path: "front"
+#
+#---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  creationTimestamp: null
+#  name: app-front-volume-pvc
+#spec:
+#  storageClassName: generic
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 100Mi
+#status: {}
+#
+#---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -49,22 +49,22 @@ spec:
     spec:
       restartPolicy: Always
       containers:
-        - name: moneaz-app-angular-ui
-          image: moneaz-app-angular-ui
-          imagePullPolicy: Never
-#          resources:
+        - name: front
+          image: moneaz-app_angular-ui
+          imagePullPolicy: "IfNotPresent"
+          resources:
 #            limits:
-#              memory: "350Mi"
+#              memory: "1Gi"
 #              cpu: "500m"
-#            requests:
-#              memory: "200Mi"
-#              cpu: "0.3"
+            requests:
+              memory: "2Gi"
+              cpu: "1"
           ports:
             - containerPort: 4200
-          volumeMounts:
-            - name: app-front-volume
-              mountPath: /usr/src/app/app-ui
-      volumes:
-        - name: app-front-volume
-          persistentVolumeClaim:
-            claimName: app-front-volume-pvc
+#          volumeMounts:
+#            - name: app-front-volume
+#              mountPath: /usr/src/app/app-ui
+#      volumes:
+#        - name: app-front-volume
+#          persistentVolumeClaim:
+#            claimName: app-front-volume-pvc
