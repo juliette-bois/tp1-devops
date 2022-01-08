@@ -8,4 +8,8 @@ RUN npm install -g @angular/cli @angular-devkit/build-angular && npm install
 
 COPY ./front/ ./
 
-CMD ["npm", "start"]
+ARG front_env
+
+ENV front_env=$front_env
+
+CMD npm start -- --configuration=${front_env}

@@ -11,7 +11,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "api"
+    path: "/mnt/api"
 
 ---
 apiVersion: v1
@@ -53,12 +53,12 @@ spec:
           image: kiwiz
           imagePullPolicy: "IfNotPresent"
           resources:
-            limits:
-              memory: "350Mi"
-              cpu: "500m"
+#            limits:
+#              memory: "350Mi"
+#              cpu: "500m"
             requests:
-              memory: "200Mi"
-              cpu: "0.3"
+              memory: "1Gi"
+              cpu: "1"
           ports:
             - containerPort: 80
           volumeMounts:
@@ -69,7 +69,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: mysql-secret
-                  key: DOCKER_DB_HOSTNAME
+                  key: MYSQL_HOSTNAME
             - name: DOCKER_DB_USERNAME
               valueFrom:
                 secretKeyRef:

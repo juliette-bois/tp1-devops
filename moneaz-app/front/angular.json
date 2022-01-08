@@ -62,6 +62,14 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "k8s": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.k8s.ts"
+                }
+              ]
             }
           }
         },
@@ -73,6 +81,9 @@
           "configurations": {
             "production": {
               "browserTarget": "front:build:production"
+            },
+            "k8s": {
+              "browserTarget": "front:build:k8s"
             }
           }
         },
